@@ -10,6 +10,7 @@ import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
@@ -21,13 +22,13 @@ class CustomViewDrum @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     private val colors = listOf(
-        Color.RED,
-        Color.rgb(255, 165, 0),
-        Color.YELLOW,
-        Color.GREEN,
-        Color.BLUE,
-        Color.rgb(0, 255, 255),
-        Color.rgb(128, 0, 128)
+        ContextCompat.getColor(context, R.color.red),
+        ContextCompat.getColor(context, R.color.orange),
+        ContextCompat.getColor(context, R.color.yellow),
+        ContextCompat.getColor(context, R.color.green),
+        ContextCompat.getColor(context, R.color.blue),
+        ContextCompat.getColor(context, R.color.cyan),
+        ContextCompat.getColor(context, R.color.purple)
     )
     private val texts =listOf("Красный", "Оранжевый", "Желтый", "Зеленый", "Синий", "Голубой", "Фиолетовый")
     private val imageUrls = listOf("","https://loremflickr.com/640/360","","https://loremflickr.com/640/360","https://loremflickr.com/640/360", "", "")
@@ -139,8 +140,7 @@ class CustomViewDrum @JvmOverloads constructor(
     }
 
     private fun drawImage(canvas: Canvas, centerX: Float, topY: Float, stopColorIndex: Int) {
-        // Проверяем, было ли уже отрисовано изображение для текущего цвета
-        if (stopColorIndex != lastStopColorIndex || drawnBitmap == null) {
+               if (stopColorIndex != lastStopColorIndex || drawnBitmap == null) {
             val bitmap = loadImage(stopColorIndex)
             if (bitmap != null) {
                 val left = centerX - bitmap.width / 2f
@@ -150,7 +150,6 @@ class CustomViewDrum @JvmOverloads constructor(
             }
         }
 
-        // Рисуем изображение
         drawnBitmap?.let {
             val left = centerX - it.width / 2f
             val top = topY - it.height / 2f
